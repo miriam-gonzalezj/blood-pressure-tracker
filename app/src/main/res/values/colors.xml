@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1565C0</color>
+    <color name="primary_dark">#0D47A1</color>
+    <color name="accent">#00897B</color>
+    <color name="systolic_red">#D32F2F</color>
+    <color name="diastolic_blue">#1976D2</color>
+    <color name="warning_amber">#F9A825</color>
+    <color name="background">#FAFAFA</color>
+    <color name="text_primary">#212121</color>
+
+    <!-- Marca de la app (mismo rojo del ícono), usada solo en el encabezado de los
+         reportes que salen de la app (resumen PNG y PDF de historial): para que
+         se vean como un documento hecho con cuidado, no una tabla genérica. -->
+    <color name="brand_red">#D62839</color>
+    <color name="report_card_bg">#FFFFFF</color>
+    <color name="report_card_border">#E6E6E6</color>
+    <color name="report_zebra">#F7F5F3</color>
+    <color name="report_header_tint">#F2EFEC</color>
+    <color name="report_label_muted">#78716C</color>
+    <color name="report_divider">#ECECEC</color>
+</resources>

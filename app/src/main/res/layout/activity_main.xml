@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/app_name" />
+
+    <!-- ============== ESTADO 1: escaneando (esto es lo que se ve al abrir la app) ============== -->
+    <FrameLayout
+        android:id="@+id/cameraContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#000000">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- "Aim here" guide: purely visual, pero su tamaño (85% ancho x 50% alto, centrado)
+             debe coincidir con GUIDE_WIDTH_FRACTION / GUIDE_HEIGHT_FRACTION en LiveScanAnalyzer.java:
+             el análisis recorta exactamente a esta misma zona antes de buscar dígitos, para
+             dejar de escanear el fondo/mesa/mano y mirar solo la pantalla del monitor. -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/scanGuideBox"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/scan_guide_border"
+                app:layout_constraintWidth_percent="0.85"
+                app:layout_constraintHeight_percent="0.50"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvScanStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#99000000"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/scan_hint" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnManualEntry"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="#FFFFFF"
+                android:text="@string/enter_manually" />
+
+            <Button
+                android:id="@+id/btnPickGallery"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="#FFFFFF"
+                android:text="@string/pick_from_gallery" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- ============== ESTADO 2: revisar y guardar (aparece cuando ya se detectó una lectura) ============== -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/reviewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvOcrHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reading_detected"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvLowConfidence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/low_confidence_warning"
+                android:textColor="@color/warning_amber"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSystolic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/systolic"
+                    android:inputType="number"
+                    android:maxLength="3" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDiastolic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/diastolic"
+                    android:inputType="number"
+                    android:maxLength="3" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPulse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/pulse"
+                    android:inputType="number"
+                    android:maxLength="3" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btnPickDate"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp"
+                    android:text="@string/date" />
+
+                <Button
+                    android:id="@+id/btnPickTime"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/time" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvArmLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/arm" />
+
+            <Spinner
+                android:id="@+id/spinnerArm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/arm_options" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAltitude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/altitude" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressAltitude"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/note" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/save" />
+
+            <Button
+                android:id="@+id/btnRescan"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rescan" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

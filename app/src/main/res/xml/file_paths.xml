@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Covers the app's private "exports" cache folder (CSV export + the shareable
+         PDF summary + the full-record PDF table). Nothing here is ever accessible to
+         other apps except through the explicit share Intent the user triggers. -->
+    <cache-path name="cache_root" path="." />
+</paths>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Latido Miri</string>
+
+    <string name="pick_from_gallery">Usar una foto existente</string>
+    <string name="enter_manually">Ingresar manualmente</string>
+    <string name="scan_hint">Encuadra los números del monitor dentro del recuadro y mantenla firme. Si no detecta de frente, inclina un poco el teléfono para evitar el reflejo de la pantalla</string>
+    <string name="scan_status_searching">Buscando lectura…</string>
+    <string name="scan_status_found">¡Lectura detectada!</string>
+    <string name="rescan">Volver a escanear</string>
+    <string name="reading_detected">Lectura detectada, revisa antes de guardar:</string>
+    <string name="low_confidence_warning">⚠ Uno o más valores no se detectaron con certeza — revísalos con cuidado.</string>
+    <string name="systolic">Sistólica (mmHg)</string>
+    <string name="diastolic">Diastólica (mmHg)</string>
+    <string name="pulse">Pulso (lpm)</string>
+    <string name="date">Fecha</string>
+    <string name="time">Hora</string>
+    <string name="arm">Brazo</string>
+    <string name="altitude">Altitud</string>
+    <string name="note">Observación (opcional)</string>
+    <string name="save">Guardar</string>
+    <string name="view_capture">Registrar medición</string>
+    <string name="view_history">Ver historial</string>
+    <string name="view_analytics">Ver análisis</string>
+    <string name="saved_confirmation">Medición guardada</string>
+    <string name="camera_permission_needed">Se necesita permiso de cámara para escanear el monitor</string>
+    <string name="fix_fields_before_saving">Revisa sistólica, diastólica y pulso antes de guardar</string>
+
+    <string name="photo_crop_title">Marca la pantalla del monitor</string>
+    <string name="photo_crop_hint">Ajusta el recuadro amarillo (arrástralo o estira las esquinas) hasta que quede justo sobre la pantalla del monitor, con los 3 números adentro.</string>
+    <string name="photo_crop_confirm">Usar este recuadro</string>
+    <string name="photo_load_failed">No se pudo abrir esa foto.</string>
+
+    <string name="history_title">Historial</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Eliminar</string>
+    <string name="delete_confirm_title">¿Eliminar esta medición?</string>
+    <string name="delete_confirm_message">Esta acción no se puede deshacer.</string>
+    <string name="cancel">Cancelar</string>
+    <string name="export_csv">Exportar CSV</string>
+    <string name="share_pdf_table">Compartir tabla en PDF</string>
+
+    <string name="analytics_title">Análisis</string>
+    <string name="from_date">Desde</string>
+    <string name="to_date">Hasta</string>
+    <string name="calculate">Calcular</string>
+    <string name="no_data_in_range">No hay mediciones en ese periodo</string>
+    <string name="database_empty">Todavía no has guardado ninguna medición.</string>
+    <string name="metric">Métrica</string>
+    <string name="col_sys">Sistólica</string>
+    <string name="col_dia">Diastólica</string>
+    <string name="col_pulse">Pulso</string>
+    <string name="period">Periodo</string>
+    <string name="morning">Mañana</string>
+    <string name="evening">Noche</string>
+    <string name="share_summary">Compartir resumen</string>
+    <string name="share_full_report">Compartir informe completo (resumen + historial)</string>
+    <string name="report_title">Resumen de presión arterial</string>
+    <string name="report_stats_section">Estadísticas del periodo</string>
+    <string name="report_ampm_section">Mañana vs. noche</string>
+    <string name="report_trend_section">Tendencia</string>
+    <string name="report_footer_format">Generado con %1$s el %2$s</string>
+    <string name="report_pulse_pressure_label">Presión de pulso (sistólica − diastólica)</string>
+    <string name="report_pulse_pressure_value_format">AVG %1$s mmHg   ·   MEDIAN %2$s mmHg</string>
+</resources>

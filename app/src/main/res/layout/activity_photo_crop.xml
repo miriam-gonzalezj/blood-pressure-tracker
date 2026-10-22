@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pantalla de "usar una foto existente", paso de recorte manual: se muestra la foto ya
+     derecha (misma corrección EXIF que OcrHelper, ver PhotoOrientation) con un recuadro
+     amarillo que la usuaria arrastra/estira sobre la pantalla del monitor, ver el punto 23
+     del historial del proyecto: para una foto donde el aparato queda descentrado, ningún
+     recorte automático puede acertarle, pero ella sí sabe exactamente dónde está la pantalla. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/black">
+
+    <TextView
+        android:id="@+id/tvCropHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:text="@string/photo_crop_hint" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/imgPhotoCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/photo_crop_title" />
+
+        <com.mtagj.bptracker.ui.CropOverlayView
+            android:id="@+id/cropOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="16dp"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/btnCancelCrop"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textColor="#FFFFFF"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/btnConfirmCrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/photo_crop_confirm" />
+    </LinearLayout>
+</LinearLayout>

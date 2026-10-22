@@ -1,0 +1,29 @@
+# --- Secrets / local config: never commit real values ---
+.env
+*.keystore
+*.jks
+local.properties
+
+# --- Gradle / Android Studio build output ---
+build/
+.gradle/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# --- IDE ---
+.idea/
+*.iml
+.navigation/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# --- OS noise ---
+.DS_Store
+Thumbs.db
+
+# --- Plain Java test harness (tests/run_tests.sh) ---
+tests/build/
+*.class

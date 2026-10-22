@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The border drawn around the "aim here" box on the scanning screen. Purely visual:
+     the actual crop region analyzed by SevenSegmentDecoder is defined in LiveScanAnalyzer
+     (GUIDE_WIDTH_FRACTION / GUIDE_HEIGHT_FRACTION) and must be kept in sync with the
+     guide box's size in activity_main.xml so what she sees on screen matches what gets
+     analyzed. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <stroke
+        android:width="3dp"
+        android:color="#FFEB3B" />
+    <corners android:radius="12dp" />
+</shape>

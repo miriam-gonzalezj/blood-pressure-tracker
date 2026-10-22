@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- "Un corazoncito bonito": corazón clásico y redondeado (no el original
+         algo torcido), en rojo intenso (no rosa: pedido explícito), con un
+         brillito tipo sticker y una línea de pulso blanca cruzándolo. La forma
+         del corazón es el path estándar de 24x24 del ícono "favorito"; se
+         escala/centra dentro de la zona segura del ícono adaptativo vía el
+         group (probado renderizando esta misma geometría con un recorte
+         circular simulando el peor caso: ningún ícono redondo lo corta). -->
+    <group
+        android:scaleX="2.7"
+        android:scaleY="2.7"
+        android:translateX="21.6"
+        android:translateY="19.13">
+        <path
+            android:fillColor="#D62839"
+            android:pathData="M12,21.35l-1.45,-1.32C5.4,15.36 2,12.28 2,8.5 2,5.42 4.42,3 7.5,3c1.74,0 3.41,0.81 4.5,2.09C13.09,3.81 14.76,3 16.5,3 19.58,3 22,5.42 22,8.5c0,3.78 -3.4,6.86 -8.55,11.54L12,21.35z" />
+    </group>
+
+    <!-- Brillito tipo sticker, arriba a la izquierda del corazón. -->
+    <path
+        android:fillColor="#59FFFFFF"
+        android:pathData="M34,32 a6,4 0 1,0 12,0 a6,4 0 1,0 -12,0 Z" />
+
+    <!-- Línea de pulso, blanca, cruzando el corazón. -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M26,58 L40,58 L46,44 L54,72 L60,58 L82,58" />
+</vector>

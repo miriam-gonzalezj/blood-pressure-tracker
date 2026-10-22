@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Línea delgada, color de marca, con puntas redondeadas: separa el
+     encabezado del resumen del contenido, en vez de un simple <View> gris. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/brand_red" />
+    <corners android:radius="2dp" />
+</shape>

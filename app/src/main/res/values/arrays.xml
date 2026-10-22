@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arm_options">
+        <item>izquierdo</item>
+        <item>derecho</item>
+    </string-array>
+</resources>

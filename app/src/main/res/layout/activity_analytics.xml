@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/analytics_title" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/btnFromDate"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="4dp" />
+
+                <Button
+                    android:id="@+id/btnToDate"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCalculate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/calculate" />
+
+            <TextView
+                android:id="@+id/tvNoData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="24dp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="@string/no_data_in_range" />
+
+            <!-- Todo lo de aquí adentro es lo que se captura al usar "Compartir resumen".
+                 Fondo cálido neutro (no blanco puro) y bloques en tarjetas separadas:
+                 pensado para que se vea como un reporte cuidado, no una captura de pantalla,
+                 ya que quien lo recibe (la doctora) puede no estar familiarizada con la app. -->
+            <LinearLayout
+                android:id="@+id/reportContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FDFBF9"
+                android:padding="18dp">
+
+                <!-- Logo completo de la app (corazón + línea de pulso + brillito, el mismo
+                     ic_launcher_foreground del ícono real), sin el fondo: "si se pierden
+                     las líneas del latido cuando salgan, está bien". Es más
+                     grande que el corazón simple de antes porque ic_launcher_foreground trae
+                     relleno alrededor (pensado para la zona segura del ícono adaptativo), así
+                     que a este tamaño el corazón visible queda de un tamaño parecido al de antes. -->
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_launcher_foreground" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/report_title"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:textSize="19sp" />
+
+                <TextView
+                    android:id="@+id/tvReportTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/report_label_muted"
+                    android:textSize="13sp"
+                    tools:text="01/08/2026 – 31/08/2026  ·  n = 42 lecturas"
+                    xmlns:tools="http://schemas.android.com/tools" />
+
+                <View
+                    android:layout_width="36dp"
+                    android:layout_height="3dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_report_accent_rule" />
+
+                <!-- Tarjeta: estadísticas del periodo completo. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_report_card"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/report_stats_section"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="10dp" />
+
+                    <TableLayout
+                        android:id="@+id/tableStats"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="1,2,3">
+
+                        <TableRow android:paddingVertical="6dp">
+                            <TextView android:text="@string/metric" android:textStyle="bold"
+                                android:textColor="@color/report_label_muted" android:textSize="12sp" android:paddingEnd="8dp" />
+                            <TextView android:text="@string/col_sys" android:textStyle="bold"
+                                android:textColor="@color/systolic_red" android:textSize="12sp" android:gravity="center" />
+                            <TextView android:text="@string/col_dia" android:textStyle="bold"
+                                android:textColor="@color/diastolic_blue" android:textSize="12sp" android:gravity="center" />
+                            <TextView android:text="@string/col_pulse" android:textStyle="bold"
+                                android:textColor="@color/accent" android:textSize="12sp" android:gravity="center" />
+                        </TableRow>
+
+                        <View android:layout_height="1dp" android:layout_marginTop="4dp" android:background="@color/report_divider" />
+
+                        <TableRow android:paddingVertical="5dp" android:background="@color/report_zebra">
+                            <TextView android:text="n" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvNSys" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvNDia" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvNPulse" android:gravity="center" android:textColor="@color/text_primary" />
+                        </TableRow>
+                        <TableRow android:paddingVertical="5dp">
+                            <TextView android:text="AVG" android:textColor="@color/text_primary" android:textStyle="bold" />
+                            <TextView android:id="@+id/tvAvgSys" android:gravity="center" android:textColor="@color/text_primary" android:textStyle="bold" />
+                            <TextView android:id="@+id/tvAvgDia" android:gravity="center" android:textColor="@color/text_primary" android:textStyle="bold" />
+                            <TextView android:id="@+id/tvAvgPulse" android:gravity="center" android:textColor="@color/text_primary" android:textStyle="bold" />
+                        </TableRow>
+                        <TableRow android:paddingVertical="5dp" android:background="@color/report_zebra">
+                            <TextView android:text="MEDIAN" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMedianSys" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMedianDia" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMedianPulse" android:gravity="center" android:textColor="@color/text_primary" />
+                        </TableRow>
+                        <TableRow android:paddingVertical="5dp">
+                            <TextView android:text="MAX" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMaxSys" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMaxDia" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMaxPulse" android:gravity="center" android:textColor="@color/text_primary" />
+                        </TableRow>
+                        <TableRow android:paddingVertical="5dp" android:background="@color/report_zebra">
+                            <TextView android:text="MIN" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMinSys" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMinDia" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMinPulse" android:gravity="center" android:textColor="@color/text_primary" />
+                        </TableRow>
+                        <TableRow android:paddingVertical="5dp">
+                            <TextView android:text="STD DEV" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvStdDevSys" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvStdDevDia" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvStdDevPulse" android:gravity="center" android:textColor="@color/text_primary" />
+                        </TableRow>
+                    </TableLayout>
+
+                    <!-- Presión de pulso (sistólica - diastólica): no es una clasificación, solo
+                         aritmética; a diferencia de MODE (poco informativa en lecturas de
+                         presión, casi siempre única o repetida por azar), este dato sí se
+                         relaciona con rigidez arterial. Pidió quitar MODE y agregar este. -->
+                    <View android:layout_width="match_parent" android:layout_height="1dp"
+                        android:layout_marginTop="8dp" android:background="@color/report_divider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/report_pulse_pressure_label"
+                            android:textColor="@color/report_label_muted"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tvPulsePressureValue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textColor="@color/text_primary"
+                            android:textStyle="bold"
+                            android:textSize="13sp"
+                            tools:text="AVG 44.3 mmHg   ·   MEDIAN 44.0 mmHg"
+                            xmlns:tools="http://schemas.android.com/tools" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Tarjeta: desglose mañana/noche (relevante clínicamente, patrón circadiano). -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_report_card"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/report_ampm_section"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="10dp" />
+
+                    <TableLayout
+                        android:id="@+id/tableAmPm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="1,2,3,4">
+
+                        <TableRow android:paddingVertical="6dp">
+                            <TextView android:text="@string/period" android:textStyle="bold"
+                                android:textColor="@color/report_label_muted" android:textSize="12sp" android:paddingEnd="8dp" />
+                            <TextView android:text="n" android:textStyle="bold"
+                                android:textColor="@color/report_label_muted" android:textSize="12sp" android:gravity="center" />
+                            <TextView android:text="@string/col_sys" android:textStyle="bold"
+                                android:textColor="@color/systolic_red" android:textSize="12sp" android:gravity="center" />
+                            <TextView android:text="@string/col_dia" android:textStyle="bold"
+                                android:textColor="@color/diastolic_blue" android:textSize="12sp" android:gravity="center" />
+                            <TextView android:text="@string/col_pulse" android:textStyle="bold"
+                                android:textColor="@color/accent" android:textSize="12sp" android:gravity="center" />
+                        </TableRow>
+
+                        <View android:layout_height="1dp" android:layout_marginTop="4dp" android:background="@color/report_divider" />
+
+                        <TableRow android:paddingVertical="5dp" android:background="@color/report_zebra">
+                            <TextView android:text="@string/morning" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMorningN" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMorningSys" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMorningDia" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvMorningPulse" android:gravity="center" android:textColor="@color/text_primary" />
+                        </TableRow>
+                        <TableRow android:paddingVertical="5dp">
+                            <TextView android:text="@string/evening" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvEveningN" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvEveningSys" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvEveningDia" android:gravity="center" android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/tvEveningPulse" android:gravity="center" android:textColor="@color/text_primary" />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+                <!-- Tarjeta: gráfica de tendencia. -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_report_card"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/report_trend_section"
+                        android:textColor="@color/text_primary"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="4dp" />
+
+                    <com.mtagj.bptracker.ui.BPTrendChartView
+                        android:id="@+id/chartView"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvReportFooter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:textColor="@color/report_label_muted"
+                    android:textSize="10sp"
+                    tools:text="Generado con Latido Miri el 14/09/2026"
+                    xmlns:tools="http://schemas.android.com/tools" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnShareSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/share_summary" />
+
+            <!-- Un solo PDF con el resumen y la tabla completa del mismo
+                 rango de fechas juntos, así la doctora puede ver el resumen y, en las
+                 páginas siguientes del mismo archivo, revisar las lecturas de las que sale,
+                 sin tener que abrir dos archivos por separado. -->
+            <Button
+                android:id="@+id/btnShareFullReport"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/share_full_report" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
